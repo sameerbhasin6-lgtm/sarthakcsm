@@ -1477,11 +1477,13 @@ display_cols = [
 ]
 
 # Interactive Dataframe
+def highlight_zone(val):
+    if val == 'Green': return 'background-color: #dcfce7; color: #166534'
+    if val == 'Yellow': return 'background-color: #fef9c3; color: #854d0e'
+    if val == 'Red': return 'background-color: #fee2e2; color: #991b1b'
+    return ''
+
 st.dataframe(
-    df[display_cols].style.applymap(
-        lambda x: 'background-color: #dcfce7; color: #166534' if x == 'Green' else 
-                  ('background-color: #fef9c3; color: #854d0e' if x == 'Yellow' else 
-                   'background-color: #fee2e2; color: #991b1b'), subset=['Health_Zone']
-    ),
+    df[display_cols].style.applymap(highlight_zone, subset=['Health_Zone']),
     use_container_width=True
 )
